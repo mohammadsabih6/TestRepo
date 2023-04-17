@@ -7,7 +7,7 @@ function TodoList() {
   const [desc, setDesc] = useState('');
   const [date, setDate] = useState('');
   const [addData, setAddDate] = useState([]);
-  const [edit, setEditData] = useState('');
+  const [edit, setEditData] = useState();
 
   function handleTitle(e) {
     setTitle(e.target.value);
@@ -43,6 +43,11 @@ function TodoList() {
     setDate(data.date);
     setEditData(i);
   }
+  function handleUpdate(e){
+    e.preventDefault();
+    addData.splice(edit,1,{ title: title, desc: desc, date: date });
+    setAddDate([...addData]);
+  }
 
   return (
     <div>
@@ -56,6 +61,7 @@ function TodoList() {
           handleDesc={handleDesc}
           handleDate={handleDate}
           handleSubmit={handleSubmit}
+          handleUpdate={handleUpdate}
         />
       ) : null}
       {addData.map((data,i) => (
